@@ -23,8 +23,12 @@ function Home() {
       <p>{data.message}</p>
       <p>{data.myVar}</p>
 
-      <video src="https://1fcd37eadd955e21cf41ee5b6586ddbc.r2.cloudflarestorage.com/baseball/This%20post%20repurposes%20a%202022%20viral%20video%20of%20Maggie,%20a%20German%20Shepherd%20trained%20as%20a%20'hockey%20goalie.mp4" />
+      {/* <video src="" /> */}
       <p>Running in Cloudflare-Workers</p>
+      <video controls width="100%" height="auto">
+        <source src="https://1fcd37eadd955e21cf41ee5b6586ddbc.r2.cloudflarestorage.com/baseball/This%20post%20repurposes%20a%202022%20viral%20video%20of%20Maggie,%20a%20German%20Shepherd%20trained%20as%20a%20'hockey%20goalie.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+</video>
     </div>
   )
 }

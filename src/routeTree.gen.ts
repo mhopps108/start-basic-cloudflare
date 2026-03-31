@@ -13,9 +13,7 @@ import { Route as DeferredRouteImport } from './routes/deferred'
 import { Route as CustomScriptDotjsRouteImport } from './routes/customScript[.]js'
 import { Route as PathlessLayoutRouteImport } from './routes/_pathlessLayout'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiUsersRouteImport } from './routes/api/users'
 import { Route as PathlessLayoutNestedLayoutRouteImport } from './routes/_pathlessLayout/_nested-layout'
-import { Route as ApiUsersUserIdRouteImport } from './routes/api/users.$userId'
 import { Route as PathlessLayoutNestedLayoutRouteBRouteImport } from './routes/_pathlessLayout/_nested-layout/route-b'
 import { Route as PathlessLayoutNestedLayoutRouteARouteImport } from './routes/_pathlessLayout/_nested-layout/route-a'
 
@@ -38,21 +36,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiUsersRoute = ApiUsersRouteImport.update({
-  id: '/api/users',
-  path: '/api/users',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PathlessLayoutNestedLayoutRoute =
   PathlessLayoutNestedLayoutRouteImport.update({
     id: '/_nested-layout',
     getParentRoute: () => PathlessLayoutRoute,
   } as any)
-const ApiUsersUserIdRoute = ApiUsersUserIdRouteImport.update({
-  id: '/$userId',
-  path: '/$userId',
-  getParentRoute: () => ApiUsersRoute,
-} as any)
 const PathlessLayoutNestedLayoutRouteBRoute =
   PathlessLayoutNestedLayoutRouteBRouteImport.update({
     id: '/route-b',
@@ -70,19 +58,15 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/customScript.js': typeof CustomScriptDotjsRoute
   '/deferred': typeof DeferredRoute
-  '/api/users': typeof ApiUsersRouteWithChildren
   '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
-  '/api/users/$userId': typeof ApiUsersUserIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/customScript.js': typeof CustomScriptDotjsRoute
   '/deferred': typeof DeferredRoute
-  '/api/users': typeof ApiUsersRouteWithChildren
   '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
-  '/api/users/$userId': typeof ApiUsersUserIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -91,30 +75,14 @@ export interface FileRoutesById {
   '/customScript.js': typeof CustomScriptDotjsRoute
   '/deferred': typeof DeferredRoute
   '/_pathlessLayout/_nested-layout': typeof PathlessLayoutNestedLayoutRouteWithChildren
-  '/api/users': typeof ApiUsersRouteWithChildren
   '/_pathlessLayout/_nested-layout/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/_pathlessLayout/_nested-layout/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
-  '/api/users/$userId': typeof ApiUsersUserIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/customScript.js'
-    | '/deferred'
-    | '/api/users'
-    | '/route-a'
-    | '/route-b'
-    | '/api/users/$userId'
+  fullPaths: '/' | '/customScript.js' | '/deferred' | '/route-a' | '/route-b'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/customScript.js'
-    | '/deferred'
-    | '/api/users'
-    | '/route-a'
-    | '/route-b'
-    | '/api/users/$userId'
+  to: '/' | '/customScript.js' | '/deferred' | '/route-a' | '/route-b'
   id:
     | '__root__'
     | '/'
@@ -122,10 +90,8 @@ export interface FileRouteTypes {
     | '/customScript.js'
     | '/deferred'
     | '/_pathlessLayout/_nested-layout'
-    | '/api/users'
     | '/_pathlessLayout/_nested-layout/route-a'
     | '/_pathlessLayout/_nested-layout/route-b'
-    | '/api/users/$userId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -133,7 +99,6 @@ export interface RootRouteChildren {
   PathlessLayoutRoute: typeof PathlessLayoutRouteWithChildren
   CustomScriptDotjsRoute: typeof CustomScriptDotjsRoute
   DeferredRoute: typeof DeferredRoute
-  ApiUsersRoute: typeof ApiUsersRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -166,26 +131,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/users': {
-      id: '/api/users'
-      path: '/api/users'
-      fullPath: '/api/users'
-      preLoaderRoute: typeof ApiUsersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_pathlessLayout/_nested-layout': {
       id: '/_pathlessLayout/_nested-layout'
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof PathlessLayoutNestedLayoutRouteImport
       parentRoute: typeof PathlessLayoutRoute
-    }
-    '/api/users/$userId': {
-      id: '/api/users/$userId'
-      path: '/$userId'
-      fullPath: '/api/users/$userId'
-      preLoaderRoute: typeof ApiUsersUserIdRouteImport
-      parentRoute: typeof ApiUsersRoute
     }
     '/_pathlessLayout/_nested-layout/route-b': {
       id: '/_pathlessLayout/_nested-layout/route-b'
@@ -234,24 +185,11 @@ const PathlessLayoutRouteWithChildren = PathlessLayoutRoute._addFileChildren(
   PathlessLayoutRouteChildren,
 )
 
-interface ApiUsersRouteChildren {
-  ApiUsersUserIdRoute: typeof ApiUsersUserIdRoute
-}
-
-const ApiUsersRouteChildren: ApiUsersRouteChildren = {
-  ApiUsersUserIdRoute: ApiUsersUserIdRoute,
-}
-
-const ApiUsersRouteWithChildren = ApiUsersRoute._addFileChildren(
-  ApiUsersRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PathlessLayoutRoute: PathlessLayoutRouteWithChildren,
   CustomScriptDotjsRoute: CustomScriptDotjsRoute,
   DeferredRoute: DeferredRoute,
-  ApiUsersRoute: ApiUsersRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -25,19 +25,22 @@ export function VideoModal({
         <Image src="./baseball.webp" alt="Thumbnail" />
         <Text>{title}</Text>
       </Box>
-      <Modal opened={opened} onClose={close}>
-        <ReactPlayer
-          // light={<img src="./android-chrome-192x192.png" alt="Thumbnail" />}
-          src={src}
-          autoPlay={true}
-          controls
-          style={{
-            width: "100%",
-            height: "auto",
-            aspectRatio: ratio,
-            // border: "1px solid red",
-          }}
-        />
+      <Modal opened={opened} onClose={close} size="xl" mah="80vh">
+        <Box>
+          <ReactPlayer
+            // light={<img src="./android-chrome-192x192.png" alt="Thumbnail" />}
+            src={src}
+            autoPlay={true}
+            controls
+            style={{
+              width: "100%",
+              height: "auto",
+              maxHeight: '80vh',
+              aspectRatio: ratio,
+              // border: "1px solid red",
+            }}
+          />
+        </Box>
       </Modal>
     </>
   );

@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexcopyRouteImport } from './routes/index copy'
 import { Route as DeferredRouteImport } from './routes/deferred'
 import { Route as CustomScriptDotjsRouteImport } from './routes/customScript[.]js'
 import { Route as PathlessLayoutRouteImport } from './routes/_pathlessLayout'
@@ -17,6 +18,11 @@ import { Route as PathlessLayoutNestedLayoutRouteImport } from './routes/_pathle
 import { Route as PathlessLayoutNestedLayoutRouteBRouteImport } from './routes/_pathlessLayout/_nested-layout/route-b'
 import { Route as PathlessLayoutNestedLayoutRouteARouteImport } from './routes/_pathlessLayout/_nested-layout/route-a'
 
+const IndexcopyRoute = IndexcopyRouteImport.update({
+  id: '/index copy',
+  path: '/index copy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DeferredRoute = DeferredRouteImport.update({
   id: '/deferred',
   path: '/deferred',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/customScript.js': typeof CustomScriptDotjsRoute
   '/deferred': typeof DeferredRoute
+  '/index copy': typeof IndexcopyRoute
   '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
 }
@@ -65,6 +72,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/customScript.js': typeof CustomScriptDotjsRoute
   '/deferred': typeof DeferredRoute
+  '/index copy': typeof IndexcopyRoute
   '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
 }
@@ -74,21 +82,35 @@ export interface FileRoutesById {
   '/_pathlessLayout': typeof PathlessLayoutRouteWithChildren
   '/customScript.js': typeof CustomScriptDotjsRoute
   '/deferred': typeof DeferredRoute
+  '/index copy': typeof IndexcopyRoute
   '/_pathlessLayout/_nested-layout': typeof PathlessLayoutNestedLayoutRouteWithChildren
   '/_pathlessLayout/_nested-layout/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/_pathlessLayout/_nested-layout/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/customScript.js' | '/deferred' | '/route-a' | '/route-b'
+  fullPaths:
+    | '/'
+    | '/customScript.js'
+    | '/deferred'
+    | '/index copy'
+    | '/route-a'
+    | '/route-b'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/customScript.js' | '/deferred' | '/route-a' | '/route-b'
+  to:
+    | '/'
+    | '/customScript.js'
+    | '/deferred'
+    | '/index copy'
+    | '/route-a'
+    | '/route-b'
   id:
     | '__root__'
     | '/'
     | '/_pathlessLayout'
     | '/customScript.js'
     | '/deferred'
+    | '/index copy'
     | '/_pathlessLayout/_nested-layout'
     | '/_pathlessLayout/_nested-layout/route-a'
     | '/_pathlessLayout/_nested-layout/route-b'
@@ -99,10 +121,18 @@ export interface RootRouteChildren {
   PathlessLayoutRoute: typeof PathlessLayoutRouteWithChildren
   CustomScriptDotjsRoute: typeof CustomScriptDotjsRoute
   DeferredRoute: typeof DeferredRoute
+  IndexcopyRoute: typeof IndexcopyRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/index copy': {
+      id: '/index copy'
+      path: '/index copy'
+      fullPath: '/index copy'
+      preLoaderRoute: typeof IndexcopyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/deferred': {
       id: '/deferred'
       path: '/deferred'
@@ -190,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   PathlessLayoutRoute: PathlessLayoutRouteWithChildren,
   CustomScriptDotjsRoute: CustomScriptDotjsRoute,
   DeferredRoute: DeferredRoute,
+  IndexcopyRoute: IndexcopyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

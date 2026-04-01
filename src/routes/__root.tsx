@@ -13,6 +13,9 @@ import appCss from "~/styles/app.css?url";
 import { seo } from "~/utils/seo";
 import "@mantine/core/styles.css";
 
+import { Image, AppShell, Burger, Group } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+
 import { MantineProvider } from "@mantine/core";
 
 export const Route = createRootRoute({
@@ -66,13 +69,47 @@ export const Route = createRootRoute({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const [opened, { toggle }] = useDisclosure();
+
   return (
     <html>
       <head>
         <HeadContent />
       </head>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider>
+          <AppShell
+            padding="md"
+            header={{ height: 60 }}
+            navbar={{
+              width: 300,
+              breakpoint: "sm",
+              collapsed: { mobile: !opened },
+            }}
+          >
+            <AppShell.Header px='md'>
+              <Group justify="space-between" align="center" h='100%'>
+                <Image
+                  src="./logo-2.png"
+                  alt="logo"
+                  width={406}
+                  height={368}
+                  w={40}
+                />
+                <Burger
+                  opened={opened}
+                  onClick={toggle}
+                  hiddenFrom="sm"
+                  size="sm"
+                />
+              </Group>
+            </AppShell.Header>
+
+            <AppShell.Navbar>Navbar</AppShell.Navbar>
+
+            <AppShell.Main>{children}</AppShell.Main>
+          </AppShell>
+        </MantineProvider>
         <TanStackRouterDevtools position="bottom-right" />
         <Scripts />
       </body>

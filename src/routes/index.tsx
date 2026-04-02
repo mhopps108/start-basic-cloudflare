@@ -24,8 +24,7 @@ function Home() {
 
   return (
     <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }}>
-      <Link to="/videos">Videos</Link>
-      <Link to="/videos">Videos</Link>
+      <Link to="/videos">Videos</Link>    
     </SimpleGrid>
     // <AppShell
     //   padding="md"

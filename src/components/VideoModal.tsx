@@ -6,25 +6,20 @@ export function VideoModal({
   src,
   ratio,
   title,
-  // opened,
-  // onClose,
+  opened,
+  toggle,
 }: {
   src: string;
   ratio: string;
   title: string;
-  // opened: boolean;
-  // onClose: () => void;
+  opened: boolean;
+  toggle: () => void;
 }) {
-  const [opened, { toggle, close }] = useDisclosure();
+  //   const [opened, { toggle, close }] = useDisclosure();
 
   // `${import.meta.env.VITE_ASSET_URL}/think.mp4`
   return (
     <>
-      <Box onClick={toggle}>
-        {/* <Image src="./android-chrome-192x192.png" alt="Thumbnail" /> */}
-        <Image src="./baseball.webp" alt="Thumbnail" />
-        <Text>{title}</Text>
-      </Box>
       <Modal opened={opened} onClose={close} size="xl" mah="80vh">
         <Box>
           <ReactPlayer
@@ -35,7 +30,7 @@ export function VideoModal({
             style={{
               width: "100%",
               height: "auto",
-              maxHeight: '80vh',
+              maxHeight: "80vh",
               aspectRatio: ratio,
               // border: "1px solid red",
             }}

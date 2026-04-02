@@ -15,7 +15,7 @@ export const Route = createFileRoute("/videos")({
 
 function RouteComponent() {
   return (
-    <SimpleGrid cols={{ base: 3, xs: 3, sm: 3, md: 4, lg: 5 }}>
+    <SimpleGrid cols={{ base: 2, xs: 3, sm: 3, md: 4, lg: 5 }}>
       {videos.map((video) => (
         // <Box mah={60}>
           <Video

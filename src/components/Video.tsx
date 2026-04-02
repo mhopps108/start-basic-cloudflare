@@ -1,20 +1,18 @@
-import { Text, Box, Grid, Modal, Image } from "@mantine/core";
+import { Text, Box, Grid, Modal, Image, Anchor } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import HoverVideoPlayer from "react-hover-video-player";
 import ReactPlayer from "react-player";
 import { videos } from "~/utils/videos";
 import { VideoModal } from "./VideoModal";
+import { Link } from "@tanstack/react-router";
+import { TVideo } from "~/utils/types";
 
 export function Video({
-  src,
-  ratio,
-  title,
+  video,
   // opened,
   // onClose,
 }: {
-  src: string;
-  ratio: string;
-  title: string;
+  video: TVideo;
   // opened: boolean;
   // onClose: () => void;
 }) {
@@ -29,7 +27,11 @@ export function Video({
 
         <ReactPlayer
           // light={<img src="./android-chrome-192x192.png" alt="Thumbnail" />}
-          src={src}
+          src={
+            video.video_src.includes("http")
+              ? video.video_src
+              : `${import.meta.env.VITE_ASSET_URL}/${video.video_src}`
+          }
           //   playing={true}
           controls
           width="100px"
@@ -43,27 +45,17 @@ export function Video({
             borderRadius: "4px",
             overflow: "hidden",
           }}
-          config={{
-            // youtube: {
-            //   color: "white"
-            // },
-          }}
+          config={
+            {
+              // youtube: {
+              //   color: "white"
+              // },
+            }
+          }
         />
-
-        {/* <HoverVideoPlayer
-          videoSrc={src}          
-          style={{
-            borderRadius: '8px',
-            overflow: 'hidden',
-            maxWidth: '100%',
-            width: '100%',          
-            height: '200px',            
-          }}          
-          videoStyle={{            
-            transform: 'translateY(-10%)'
-          }}          
-        /> */}
-        <Text>{title}</Text>
+        <Anchor component={Link} to={video.slug}>
+          {video.title}
+        </Anchor>
         {/* <VideoModal
           src={src}
           ratio={ratio}

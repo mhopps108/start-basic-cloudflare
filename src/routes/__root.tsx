@@ -13,10 +13,118 @@ import appCss from "~/styles/app.css?url";
 import { seo } from "~/utils/seo";
 import "@mantine/core/styles.css";
 
-import { Image, AppShell, Burger, Group } from "@mantine/core";
+import {
+  Image,
+  AppShell,
+  Burger,
+  Group,
+  ActionIcon,
+  Button,
+  TextInput,
+  Checkbox,
+  Loader,
+  Modal,
+  LoadingOverlay,
+  createTheme,
+  DEFAULT_THEME,
+  mantineHtmlProps,
+  ColorSchemeScript,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 import { MantineProvider } from "@mantine/core";
+
+export const theme = createTheme({
+  // primaryColor: 'blue',
+  // primaryShade: {
+  //   light: 6,
+  //   dark: 8,
+  // },
+  primaryColor: "blue",
+  fontFamily: `Roboto, ${DEFAULT_THEME.fontFamily}`,
+  defaultRadius: "md",
+  headings: {
+    fontFamily: "Roboto, sans-serif",
+  },
+  defaultGradient: {
+    from: "myColor.6",
+    to: "myColor.4",
+    deg: 45,
+  },
+  // defaultGradient: {
+  //   from: 'green.7',
+  //   to: 'green.4',
+  //   deg: 45,
+  // },
+  spacing: {
+    xxs: "0.25rem", // 4
+    xs: "0.5rem", // 8
+    sm: "0.75rem", // 12
+    md: "1rem", // 16
+    lg: "1.5rem", // 24
+    xl: "2rem", // 32
+  },
+  components: {
+    Image: Image.extend({
+      defaultProps: {
+        radius: "md",
+      },
+    }),
+    ActionIcon: ActionIcon.extend({
+      defaultProps: {
+        variant: "default",
+        size: "lg",
+      },
+    }),
+    Button: Button.extend({
+      defaultProps: {
+        size: "sm",
+        // variant: 'light',
+        variant: "gradient",
+      },
+    }),
+    TextInput: TextInput.extend({
+      defaultProps: {
+        size: "md",
+      },
+    }),
+    Checkbox: Checkbox.extend({
+      defaultProps: {
+        size: "md",
+      },
+    }),
+    Loader: Loader.extend({
+      defaultProps: {
+        type: "dots",
+      },
+    }),
+    Modal: Modal.extend({
+      defaultProps: {
+        size: "xl",
+        overlayProps: {
+          backgroundOpacity: 0.6,
+          blur: 2,
+        },
+        transitionProps: {
+          transition: "slide-up",
+        },
+      },
+    }),
+    LoadingOverlay: LoadingOverlay.extend({
+      defaultProps: {
+        overlayProps: {
+          radius: "sm",
+          blur: 2,
+          zIndex: 9999,
+        },
+      },
+    }),
+  },
+  // other: {
+  // headerHeight: 1,
+  // footerHeight: 1
+  // }
+});
 
 export const Route = createRootRoute({
   head: () => ({
@@ -72,12 +180,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   const [opened, { toggle }] = useDisclosure();
 
   return (
-    <html>
+    <html lang="en" {...mantineHtmlProps}>
       <head>
         <HeadContent />
+        <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body>
-        <MantineProvider>
+        <MantineProvider theme={theme} defaultColorScheme="dark">
           <AppShell
             padding="md"
             header={{ height: 60 }}
@@ -87,8 +196,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               collapsed: { mobile: !opened },
             }}
           >
-            <AppShell.Header px='md'>
-              <Group justify="space-between" align="center" h='100%'>
+            <AppShell.Header px="md">
+              <Group justify="space-between" align="center" h="100%">
                 <Image
                   src="./logo-2.png"
                   alt="logo"

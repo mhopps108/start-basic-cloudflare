@@ -8,7 +8,7 @@ import { videos } from "~/utils/videos";
 
 // }
 
-export const Route = createFileRoute("/videos")({
+export const Route = createFileRoute("/videos/")({
   // loader: () => fetchVideos(),
   component: RouteComponent,
 });
@@ -18,16 +18,10 @@ function RouteComponent() {
     <SimpleGrid cols={{ base: 2, xs: 3, sm: 3, md: 4, lg: 5 }}>
       {videos.map((video) => (
         // <Box mah={60}>
-          <Video
+          (<Video
             key={video.id}
-            src={
-              video.video_src.includes("http")
-                ? video.video_src
-                : `${import.meta.env.VITE_ASSET_URL}/${video.video_src}`
-            }
-            ratio={video.video_ratio}
-            title={video.title}
-          />
+            video={video}
+          />)
         // </Box>
       ))}
       {/* <VideoModal
@@ -42,5 +36,5 @@ function RouteComponent() {
         title="How to Pitch a Baseball | Baseball Pitching | by Howcast"
       /> */}
     </SimpleGrid>
-  );
+  )
 }

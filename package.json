@@ -20,7 +20,8 @@
     "@mantine/core": "9.0.0",
     "@mantine/hooks": "9.0.0",
     "react-player": "3.4.0",
-    "react-hover-video-player": "10.0.2"
+    "react-hover-video-player": "10.0.2",
+    "media-chrome": "4.18.3"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.30.3",

@@ -29,6 +29,8 @@ import {
   DEFAULT_THEME,
   mantineHtmlProps,
   ColorSchemeScript,
+  Anchor,
+  Container,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -198,23 +200,36 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           >
             <AppShell.Header px="md">
               <Group justify="space-between" align="center" h="100%">
-                <Image
-                  src="./logo-2.png"
-                  alt="logo"
-                  width={406}
-                  height={368}
-                  w={40}
-                />
+                <Anchor component={Link} to="/">
+                  <Image
+                    src="./logo.png"
+                    alt="logo"
+                    width={406}
+                    height={368}
+                    w={40}
+                  />
+                </Anchor>
                 <Burger
                   opened={opened}
                   onClick={toggle}
                   hiddenFrom="sm"
                   size="sm"
                 />
+                <Group visibleFrom="sm">
+                  <Anchor component={Link} to="/videos">
+                    Videos
+                  </Anchor>
+                </Group>
               </Group>
             </AppShell.Header>
 
-            <AppShell.Navbar>Navbar</AppShell.Navbar>
+            <AppShell.Navbar>
+              <Container>
+                <Anchor component={Link} to="/videos">
+                  Videos
+                </Anchor>
+              </Container>
+            </AppShell.Navbar>
 
             <AppShell.Main>{children}</AppShell.Main>
           </AppShell>

@@ -1,4 +1,14 @@
-import { Text, Box, Grid, Modal, Image, Anchor } from "@mantine/core";
+import {
+  Text,
+  Box,
+  Grid,
+  Modal,
+  Image,
+  Anchor,
+  Group,
+  Badge,
+  Stack,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import HoverVideoPlayer from "react-hover-video-player";
 import ReactPlayer from "react-player";
@@ -45,24 +55,24 @@ export function Video({
             borderRadius: "4px",
             overflow: "hidden",
           }}
-          config={
-            {
-              // youtube: {
-              //   color: "white"
-              // },
-            }
-          }
         />
-        <Anchor component={Link} to={video.slug}>
-          {video.title}
-        </Anchor>
-        {/* <VideoModal
-          src={src}
-          ratio={ratio}
-          title={title}
-          opened={opened}
-          toggle={toggle}
-        /> */}
+        <Stack gap='sm' mt='xs'>
+          <Anchor
+            component={Link}
+            to={video.slug}
+            fz="sm"
+            lh="xs"
+            lineClamp={3}
+          >
+            {video.title}
+          </Anchor>
+          <Group gap="xxs" mt='auto'>
+            {video.tags &&
+              video.tags
+                .split(",")
+                .map((tag) => <Badge size="xs">{tag}</Badge>)}
+          </Group>
+        </Stack>
       </Box>
       {/* <Modal opened={opened} onClose={close} size="xl" mah="80vh">
         <Box>

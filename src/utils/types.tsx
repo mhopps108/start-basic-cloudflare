@@ -6,4 +6,5 @@ export type TVideo = {
   slug: string;
   video_name: string;
   source: string;
+  tags?: string;
 };

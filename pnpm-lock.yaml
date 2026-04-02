@@ -23,6 +23,9 @@ importers:
       '@tanstack/react-start':
         specifier: ^1.167.16
         version: 1.167.16(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@22.19.15)(esbuild@0.27.4)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.8))(tsx@4.21.0))
+      media-chrome:
+        specifier: 4.18.3
+        version: 4.18.3(react@19.2.4)
       react:
         specifier: ^19.2.4
         version: 19.2.4

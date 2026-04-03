@@ -219,6 +219,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                   <Anchor component={Link} to="/videos">
                     Videos
                   </Anchor>
+                  <Anchor component={Link} to="/tags">
+                    Tags
+                  </Anchor>
                 </Group>
               </Group>
             </AppShell.Header>
@@ -227,6 +230,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               <Container>
                 <Anchor component={Link} to="/videos">
                   Videos
+                </Anchor>
+                <Anchor component={Link} to="/tags">
+                  Tags
                 </Anchor>
               </Container>
             </AppShell.Navbar>

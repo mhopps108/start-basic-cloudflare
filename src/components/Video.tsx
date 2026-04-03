@@ -5,7 +5,7 @@ import { TVideo } from "~/utils/types";
 
 export function Video({ video }: { video: TVideo }) {
   return (
-    <Box>
+    <Box bg='dark.9' bdrs='sm'>
       <ReactPlayer
         src={
           video.src.includes("http")
@@ -26,8 +26,8 @@ export function Video({ video }: { video: TVideo }) {
           overflow: "hidden",
         }}
       />
-      <Stack gap="sm" mt="xs">
-        <Anchor component={Link} to={`/videos/${video.slug}`} fz="sm" lh="xs" lineClamp={3}>
+      <Stack gap="sm" p='sm' >
+        <Anchor component={Link} to={`/videos/${video.slug}`} fz="sm" lh="xs" lineClamp={2}>
           {video.title}
         </Anchor>
         <Group gap="xxs" mt="auto">

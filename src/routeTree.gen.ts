@@ -11,8 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as VideosIndexRouteImport } from './routes/videos/index'
+import { Route as TagsIndexRouteImport } from './routes/tags/index'
 import { Route as VideosSlugRouteImport } from './routes/videos/$slug'
-import { Route as TagsTagRouteImport } from './routes/tags.$tag'
+import { Route as TagsTagRouteImport } from './routes/tags/$tag'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const VideosIndexRoute = VideosIndexRouteImport.update({
   id: '/videos/',
   path: '/videos/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TagsIndexRoute = TagsIndexRouteImport.update({
+  id: '/tags/',
+  path: '/tags/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VideosSlugRoute = VideosSlugRouteImport.update({
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/tags/$tag': typeof TagsTagRoute
   '/videos/$slug': typeof VideosSlugRoute
+  '/tags/': typeof TagsIndexRoute
   '/videos/': typeof VideosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/tags/$tag': typeof TagsTagRoute
   '/videos/$slug': typeof VideosSlugRoute
+  '/tags': typeof TagsIndexRoute
   '/videos': typeof VideosIndexRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/tags/$tag': typeof TagsTagRoute
   '/videos/$slug': typeof VideosSlugRoute
+  '/tags/': typeof TagsIndexRoute
   '/videos/': typeof VideosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/tags/$tag' | '/videos/$slug' | '/videos/'
+  fullPaths: '/' | '/tags/$tag' | '/videos/$slug' | '/tags/' | '/videos/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/tags/$tag' | '/videos/$slug' | '/videos'
-  id: '__root__' | '/' | '/tags/$tag' | '/videos/$slug' | '/videos/'
+  to: '/' | '/tags/$tag' | '/videos/$slug' | '/tags' | '/videos'
+  id: '__root__' | '/' | '/tags/$tag' | '/videos/$slug' | '/tags/' | '/videos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   TagsTagRoute: typeof TagsTagRoute
   VideosSlugRoute: typeof VideosSlugRoute
+  TagsIndexRoute: typeof TagsIndexRoute
   VideosIndexRoute: typeof VideosIndexRoute
 }
 
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/videos'
       fullPath: '/videos/'
       preLoaderRoute: typeof VideosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tags/': {
+      id: '/tags/'
+      path: '/tags'
+      fullPath: '/tags/'
+      preLoaderRoute: typeof TagsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/videos/$slug': {
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   TagsTagRoute: TagsTagRoute,
   VideosSlugRoute: VideosSlugRoute,
+  TagsIndexRoute: TagsIndexRoute,
   VideosIndexRoute: VideosIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -70,7 +70,13 @@ function RouteComponent() {
           <Group gap="xxs" mt="auto">
             {video.tags &&
               video.tags.split(",").map((tag) => (
-                <Badge size="lg" variant="outline" key={tag}>
+                <Badge
+                  size="lg"
+                  variant="outline"
+                  key={tag}
+                  component={Link}
+                  to={`/tags/${tag}`}
+                >
                   {tag}
                 </Badge>
               ))}

@@ -27,7 +27,7 @@ export function Video({ video }: { video: TVideo }) {
         }}
       />
       <Stack gap="sm" mt="xs">
-        <Anchor component={Link} to={video.slug} fz="sm" lh="xs" lineClamp={3}>
+        <Anchor component={Link} to={`/videos/${video.slug}`} fz="sm" lh="xs" lineClamp={3}>
           {video.title}
         </Anchor>
         <Group gap="xxs" mt="auto">

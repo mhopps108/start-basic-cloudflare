@@ -8,3 +8,5 @@ export const getAllTags = () => {
   const tags = [...new Set(allTags?.flat())].sort();
   return tags;
 };
+
+export const getAllVideos = () => videos;

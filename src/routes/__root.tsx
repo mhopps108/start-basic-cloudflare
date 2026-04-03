@@ -12,13 +12,13 @@ import { NotFound } from "~/components/NotFound";
 import appCss from "~/styles/app.css?url";
 import { seo } from "~/utils/seo";
 import "@mantine/core/styles.css";
+import "@mantine/spotlight/styles.css";
 
 import {
   Image,
   AppShell,
   Burger,
   Group,
-  ActionIcon,
   Button,
   TextInput,
   Checkbox,
@@ -31,10 +31,13 @@ import {
   ColorSchemeScript,
   Anchor,
   Container,
+  ActionIcon,
+  Stack,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 import { MantineProvider } from "@mantine/core";
+import { Search } from "~/components/Search";
 
 export const theme = createTheme({
   // primaryColor: 'blue',
@@ -195,7 +198,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             navbar={{
               width: 225,
               breakpoint: "sm",
-              collapsed: { mobile: !opened },
+              collapsed: { mobile: !opened, desktop: true },
             }}
           >
             <AppShell.Header px="md">
@@ -209,12 +212,16 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                     w={40}
                   />
                 </Anchor>
-                <Burger
-                  opened={opened}
-                  onClick={toggle}
-                  hiddenFrom="sm"
-                  size="sm"
-                />
+
+                <Group hiddenFrom="sm">
+                  <Search />
+                  <Burger
+                    opened={opened}
+                    onClick={toggle}
+                    // hiddenFrom="sm"
+                    size="sm"
+                  />
+                </Group>
                 <Group visibleFrom="sm">
                   <Anchor component={Link} to="/videos">
                     Videos
@@ -222,19 +229,20 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                   <Anchor component={Link} to="/tags">
                     Tags
                   </Anchor>
+                  <Search />
                 </Group>
               </Group>
             </AppShell.Header>
 
             <AppShell.Navbar>
-              <Container>
+              <Stack p="md">
                 <Anchor component={Link} to="/videos">
                   Videos
                 </Anchor>
                 <Anchor component={Link} to="/tags">
                   Tags
                 </Anchor>
-              </Container>
+              </Stack>
             </AppShell.Navbar>
 
             <AppShell.Main>{children}</AppShell.Main>

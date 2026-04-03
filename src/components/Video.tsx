@@ -1,11 +1,12 @@
-import { Box, Anchor, Group, Badge, Stack } from "@mantine/core";
+import { Box, Anchor, Group, Badge, Stack, Paper } from "@mantine/core";
 import ReactPlayer from "react-player";
 import { Link } from "@tanstack/react-router";
 import { TVideo } from "~/utils/types";
 
 export function Video({ video }: { video: TVideo }) {
   return (
-    <Box bg='dark.9' bdrs='sm'>
+    // <Box bg='dark.9' bdrs='sm'>
+    <Paper shadow="lg" bg='dark.8'>
       <ReactPlayer
         src={
           video.src.includes("http")
@@ -39,6 +40,6 @@ export function Video({ video }: { video: TVideo }) {
             ))}
         </Group>
       </Stack>
-    </Box>
+    </Paper>
   );
 }

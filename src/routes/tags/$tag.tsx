@@ -1,11 +1,13 @@
 import {
   AppShellNavbar,
+  Badge,
   Box,
   Button,
   Container,
   SimpleGrid,
+  Stack,
   Text,
-  Title
+  Title,
 } from "@mantine/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { VideoGrid } from "~/components/VideoGrid";
@@ -40,10 +42,11 @@ function RouteComponent() {
   return (
     <>
       <AppShellNavbar>
-        <SimpleGrid cols={{ base: 1}} p='sm'>
+        <SimpleGrid cols={{ base: 1 }} p="md">
           <Title order={4}>Tags</Title>
           {tags.map((tag) => (
             <Button
+              key={tag}
               // size="lg"
               variant="default"
               component={Link}
@@ -56,9 +59,13 @@ function RouteComponent() {
         </SimpleGrid>
       </AppShellNavbar>
       <Box>
-        <Title order={1} tt="capitalize">
-          {tag} Videos
-        </Title>
+        <Stack gap="xs">
+          <Badge>Tagged Videos</Badge>
+          <Title order={1} tt="capitalize">
+            {tag}
+          </Title>
+        </Stack>
+
         <VideoGrid videos={tagVideos} />
       </Box>
     </>

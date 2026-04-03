@@ -7,6 +7,7 @@ import {
   Container,
   SimpleGrid,
   Stack,
+  Title,
 } from "@mantine/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { videos } from "~/utils/videos";
@@ -25,15 +26,12 @@ function RouteComponent() {
 
   return (
     <>
-      {/* <AppShellNavbar>
-        <Container>
-          Other
-        </Container>
-      </AppShellNavbar> */}
       <Box>
-        <SimpleGrid cols={{ base: 2, sm: 3, md: 4 }}>
+        <Title order={1}>Tags</Title>
+        <SimpleGrid cols={{ base: 2, sm: 3, md: 4 }} mt="md">
           {tags.map((tag) => (
             <Button
+              key={tag}
               size="lg"
               variant="default"
               component={Link}

@@ -18,6 +18,7 @@ import ReactPlayer from "react-player";
 import { videos } from "~/utils/videos";
 import { Link } from "@tanstack/react-router";
 import { TVideo } from "~/utils/types";
+import { IconArrowAutofitLeft, IconArrowRight, IconArrowUpRight } from "@tabler/icons-react";
 
 export const Route = createFileRoute("/videos/$slug")({
   component: RouteComponent,
@@ -72,10 +73,11 @@ function RouteComponent() {
               video.tags.split(",").map((tag) => (
                 <Badge
                   size="lg"
-                  variant="outline"
+                  variant="light"
                   key={tag}
                   component={Link}
                   to={`/tags/${tag}`}
+                  rightSection={<IconArrowUpRight size={16} />}
                 >
                   {tag}
                 </Badge>

@@ -1,4 +1,13 @@
-import { Box, Grid, SimpleGrid } from "@mantine/core";
+import {
+  AppShellNavbar,
+  Box,
+  Button,
+  Grid,
+  Group,
+  SimpleGrid,
+  Text,
+  Title,
+} from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import { Video } from "~/components/Video";
 import { VideoGrid } from "~/components/VideoGrid";
@@ -9,5 +18,20 @@ export const Route = createFileRoute("/videos/")({
 });
 
 function RouteComponent() {
-  return <VideoGrid videos={videos} />;
+  return (
+    <>      
+      <Group justify="space-between">
+        <Title order={1}>Videos</Title>
+        <Group>
+          <Button variant="default" size="xs">
+            Sort
+          </Button>
+          <Button variant="default" size="xs">
+            Filter
+          </Button>
+        </Group>
+      </Group>
+      <VideoGrid videos={videos} />
+    </>
+  );
 }

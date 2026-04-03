@@ -7,7 +7,7 @@ export function VideoGrid({ videos }: { videos: TVideo[] }) {
     <SimpleGrid
       verticalSpacing="xl"
       cols={{ base: 2, xs: 3, sm: 3, md: 4, lg: 5 }}
-      styles={{}}
+      mt='md'
     >
       {videos.map((video) => (
         <Video key={video.id} video={video} />

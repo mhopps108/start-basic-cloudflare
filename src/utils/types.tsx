@@ -1,10 +1,13 @@
 export type TVideo = {
   id: string;
   title: string;
-  video_src: string;
-  video_ratio: string;
+  src: string;
+  ratio: string;
+  tags: string;
   slug: string;
-  video_name: string;
-  source: string;
-  tags?: string;
+  filename?: string;
+  org_source: string;
+  date_added: string;
+  player?: string;
+  duration?: string;
 };

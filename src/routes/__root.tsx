@@ -193,7 +193,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             padding="md"
             header={{ height: 60 }}
             navbar={{
-              width: 300,
+              width: 225,
               breakpoint: "sm",
               collapsed: { mobile: !opened },
             }}

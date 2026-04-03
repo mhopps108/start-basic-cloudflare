@@ -1,34 +1,13 @@
-import { Text, Box, Grid, Modal, Image } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Text, Box } from "@mantine/core";
 import HoverVideoPlayer from "react-hover-video-player";
-import ReactPlayer from "react-player";
-import { videos } from "~/utils/videos";
-import { VideoModal } from "./VideoModal";
+import { TVideo } from "~/utils/types";
 
-export function HoverVideo({
-  src,
-  ratio,
-  title,
-  // opened,
-  // onClose,
-}: {
-  src: string;
-  ratio: string;
-  title: string;
-  // opened: boolean;
-  // onClose: () => void;
-}) {
-  const [opened, { toggle, close }] = useDisclosure();
-
-  // `${import.meta.env.VITE_ASSET_URL}/think.mp4`
+export function HoverVideo({ video }: { video: TVideo }) {
   return (
     <>
-      <Box onClick={toggle}>
-        {/* <Image src="./android-chrome-192x192.png" alt="Thumbnail" /> */}
-        {/* <Image src="./baseball.webp" alt="Thumbnail" /> */}
-
+      <Box>
         <HoverVideoPlayer
-          videoSrc={src}
+          videoSrc={video.video_src}
           // focused={autoPlay}
           // focused={isVideoPlaying}
           // disableDefaultEventHandling
@@ -36,12 +15,12 @@ export function HoverVideo({
           // restartOnPaused
           // unloadVideoOnPaused
           style={{
-            borderRadius: '8px',
-            overflow: 'hidden',
-            maxWidth: '100%',
-            width: '100%',
+            borderRadius: "8px",
+            overflow: "hidden",
+            maxWidth: "100%",
+            width: "100%",
             // height: maxWidth ? `${(1 / 1.7777777777777777) * maxWidth || 100}px` : '100%',
-            height: '200px',
+            height: "200px",
             // transform: 'scale(1.1)',
             // transform: 'translateY(20%)'
           }}
@@ -57,7 +36,7 @@ export function HoverVideo({
             // maxWidth: maxWidth ? `${maxWidth}px` : '100%',
             // width: '100%',
             // height: maxWidth ? `${(1 / 1.7777777777777777) * maxWidth || 100}px` : '100%',
-            transform: 'translateY(-10%)'
+            transform: "translateY(-10%)",
           }}
           // playbackStartDelay={50}
           // preload="auto"
@@ -79,32 +58,8 @@ export function HoverVideo({
           // }
           // loadingOverlay={<LoadingOverlay visible={true} />}
         />
-        <Text>{title}</Text>
-        <VideoModal
-          src={src}
-          ratio={ratio}
-          title={title}
-          opened={opened}
-          toggle={toggle}
-        />
+        <Text>{video.title}</Text>
       </Box>
-      {/* <Modal opened={opened} onClose={close} size="xl" mah="80vh">
-        <Box>
-          <ReactPlayer
-            // light={<img src="./android-chrome-192x192.png" alt="Thumbnail" />}
-            src={src}
-            autoPlay={true}
-            controls
-            style={{
-              width: "100%",
-              height: "auto",
-              maxHeight: '80vh',
-              aspectRatio: ratio,
-              // border: "1px solid red",
-            }}
-          />
-        </Box>
-      </Modal> */}
     </>
   );
 }

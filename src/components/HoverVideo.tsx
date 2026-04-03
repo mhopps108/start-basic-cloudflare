@@ -7,7 +7,7 @@ export function HoverVideo({ video }: { video: TVideo }) {
     <>
       <Box>
         <HoverVideoPlayer
-          videoSrc={video.video_src}
+          videoSrc={video.src}
           // focused={autoPlay}
           // focused={isVideoPlaying}
           // disableDefaultEventHandling

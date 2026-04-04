@@ -1,24 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  Text,
-  Box,
-  Grid,
-  Modal,
-  Image,
-  Anchor,
-  Stack,
-  Container,
-  Title,
-  Group,
-  Badge,
-} from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import HoverVideoPlayer from "react-hover-video-player";
+import { Text, Stack, Title, Group, Badge } from "@mantine/core";
 import ReactPlayer from "react-player";
-import { videos } from "~/utils/videos";
 import { Link } from "@tanstack/react-router";
 import { TVideo } from "~/utils/types";
-import { IconArrowAutofitLeft, IconArrowRight, IconArrowUpRight } from "@tabler/icons-react";
+import { IconArrowUpRight } from "@tabler/icons-react";
+import { getAllVideos } from "~/utils/helper";
 
 export const Route = createFileRoute("/videos/$slug")({
   component: RouteComponent,
@@ -26,7 +12,7 @@ export const Route = createFileRoute("/videos/$slug")({
 
 function RouteComponent() {
   const { slug } = Route.useParams();
-  // const video: TVideo | undefined = videos.find((v) => v.slug === slug);
+  const videos = getAllVideos();
   const video: TVideo | undefined = videos.find((v) => v.slug === slug);
 
   if (!video)

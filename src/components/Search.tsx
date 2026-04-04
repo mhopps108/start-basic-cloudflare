@@ -10,7 +10,7 @@ import {
 } from "@mantine/spotlight";
 import { getAllVideos, getAllTags } from "~/utils/helper";
 import { useNavigate } from "@tanstack/react-router";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 
 const fuzzySearchFilter: SpotlightFilterFunction = (query, searchActions) => {
   if (!query.trim()) {

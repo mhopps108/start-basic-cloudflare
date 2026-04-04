@@ -1,13 +1,4 @@
-import {
-  Box,
-  Anchor,
-  Group,
-  Badge,
-  Paper,
-  Card,
-  Text,
-  Stack,
-} from "@mantine/core";
+import { Anchor, Group, Badge, Card } from "@mantine/core";
 import ReactPlayer from "react-player";
 import { Link } from "@tanstack/react-router";
 import { TVideo } from "~/utils/types";
@@ -38,27 +29,25 @@ export function VideoItem({ video }: { video: TVideo }) {
         />
       </Card.Section>
 
-      {/* <Stack justify="space-between"> */}
-        <Anchor
-          component={Link}
-          to={`/videos/${video.slug}`}
-          fz="sm"
-          lh="xs"
-          mt='xs'
-          lineClamp={2}
-          fw={500}
-        >
-          {video.title}
-        </Anchor>
-        <Group gap="xxs" mt="xs">
-          {video.tags &&
-            video.tags.split(",").map((tag) => (
-              <Badge variant="default" key={tag} size="xs">
-                {tag}
-              </Badge>
-            ))}
-        </Group>
-      {/* </Stack> */}
+      <Anchor
+        component={Link}
+        to={`/videos/${video.slug}`}
+        fz="sm"
+        lh="xs"
+        mt="xs"
+        lineClamp={2}
+        fw={500}
+      >
+        {video.title}
+      </Anchor>
+      <Group gap="xxs" mt="xs">
+        {video.tags &&
+          video.tags.split(",").map((tag) => (
+            <Badge variant="default" key={tag} size="xs">
+              {tag}
+            </Badge>
+          ))}
+      </Group>
     </Card>
   );
 }

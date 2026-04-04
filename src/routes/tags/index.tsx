@@ -1,22 +1,13 @@
-import {
-  Anchor,
-  AppShell,
-  AppShellNavbar,
-  Box,
-  Button,
-  Container,
-  SimpleGrid,
-  Stack,
-  Title,
-} from "@mantine/core";
+import { Box, Button, SimpleGrid, Title } from "@mantine/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { videos } from "~/utils/videos";
+import { getAllVideos } from "~/utils/helper";
 
 export const Route = createFileRoute("/tags/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const videos = getAllVideos();
   const allTags: string[][] | undefined = videos?.map((v) => {
     return v.tags.split(",");
   });

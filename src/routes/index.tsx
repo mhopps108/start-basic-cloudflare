@@ -1,18 +1,8 @@
-import {
-  Anchor,
-  Badge,
-  Box,
-  Card,
-  Group,
-  Scroller,
-  SimpleGrid,
-  Stack,
-} from "@mantine/core";
+import { Anchor, Card, Group, Scroller, Stack, Title } from "@mantine/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { VideoItem } from "~/components/VideoItem";
 import ReactPlayer from "react-player";
 
-import { getAllVideos } from "~/utils/helper";
+import { getAllVideos, getAllTags } from "~/utils/helper";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -20,11 +10,16 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const videos = getAllVideos();
+  const tags = getAllTags();
 
   return (
-    <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }}>
-      <Link to="/videos">Videos</Link>
-
+    <Stack>
+      <Group justify="space-between">
+        <Title order={2}>Videos</Title>
+        <Anchor component={Link} to="/videos">
+          View All
+        </Anchor>
+      </Group>
       <Scroller>
         {/* <Group gap="xs" wrap="nowrap" mah={80}> */}
         <Group gap="sm" wrap="nowrap">
@@ -72,6 +67,37 @@ function Home() {
           ))}
         </Group>
       </Scroller>
+
+      <Group justify="space-between" mt="lg">
+        <Title order={2}>Tags</Title>
+        <Anchor component={Link} to="/tags">
+          View All
+        </Anchor>
+      </Group>
+
+      <Scroller>
+        {/* <Group gap="xs" wrap="nowrap" mah={80}> */}
+        <Group gap="sm" wrap="nowrap">
+          {tags.map((t) => (
+            <Card shadow="md" padding="sm" key={t} w={140} h="100%">
+              <Anchor
+                // display="inline-block"
+                component={Link}
+                style={{ textWrap: "wrap" }}
+                to={`/tags/${t}`}
+                fz="xs"
+                lh="xs"
+                lineClamp={2}
+                fw={500}
+                tt="capitalize"
+              >
+                {t}
+              </Anchor>
+            </Card>
+          ))}
+        </Group>
+      </Scroller>
+
       {/* 
       search
       tags lists
@@ -81,6 +107,6 @@ function Home() {
       top picks
       shorts
       */}
-    </SimpleGrid>
+    </Stack>
   );
 }

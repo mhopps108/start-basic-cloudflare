@@ -5,6 +5,7 @@ import { Link } from "@tanstack/react-router";
 import { TVideo } from "~/utils/types";
 import { IconArrowUpRight } from "@tabler/icons-react";
 import { getAllVideos } from "~/utils/helper";
+import { MediaControl } from "./-media-control-demo";
 
 export const Route = createFileRoute("/videos/$slug")({
   component: RouteComponent,
@@ -26,6 +27,8 @@ function RouteComponent() {
 
   return (
     <Stack maw={600} mx="auto">
+      <MediaControl video={video} />
+
       <ReactPlayer
         src={
           video.src.includes("http")

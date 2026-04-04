@@ -94,7 +94,7 @@ export const theme = createTheme({
     }),
     Checkbox: Checkbox.extend({
       defaultProps: {
-        size: "md",
+        // size: "md",
       },
     }),
     Loader: Loader.extend({

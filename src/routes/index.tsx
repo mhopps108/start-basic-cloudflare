@@ -1,5 +1,5 @@
 import { Anchor, Card, Group, Scroller, Stack, Title } from "@mantine/core";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import ReactPlayer from "react-player";
 
 import { getAllVideos, getAllTags } from "~/utils/helper";
@@ -11,6 +11,7 @@ export const Route = createFileRoute("/")({
 function Home() {
   const videos = getAllVideos();
   const tags = getAllTags();
+  const navigate = useNavigate();
 
   return (
     <Stack>
@@ -33,6 +34,8 @@ function Home() {
                       : `${import.meta.env.VITE_ASSET_URL}/${v.src}`
                   }
                   //   playing={true}
+                  light={<img src={`./thumbs/${v.id}.jpeg`} alt="Thumbnail" />}
+                  onClickPreview={() => navigate({ to: `/videos/${v.slug}` })}
                   controls
                   width="100px"
                   height="auto"
@@ -76,18 +79,12 @@ function Home() {
       </Group>
 
       <Scroller>
-        {/* <Group gap="xs" wrap="nowrap" mah={80}> */}
         <Group gap="sm" wrap="nowrap">
           {tags.map((t) => (
             <Card shadow="md" padding="sm" key={t} w={140} h="100%">
               <Anchor
-                // display="inline-block"
                 component={Link}
-                style={{ textWrap: "wrap" }}
                 to={`/tags/${t}`}
-                fz="xs"
-                lh="xs"
-                lineClamp={2}
                 fw={500}
                 tt="capitalize"
               >

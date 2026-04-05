@@ -14,6 +14,7 @@ export function VideoItem({ video }: { video: TVideo }) {
               : `${import.meta.env.VITE_ASSET_URL}/${video.src}`
           }
           //   playing={true}
+          light={<img src={`/thumbs/${video.id}.jpeg`} alt="Thumbnail" />}
           controls
           width="100px"
           height="auto"

@@ -10,4 +10,5 @@ export type TVideo = {
   date_added: string;
   player?: string;
   duration?: string;
+  category: string;
 };

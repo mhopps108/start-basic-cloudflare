@@ -204,7 +204,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               <Group justify="space-between" align="center" h="100%">
                 <Anchor component={Link} to="/">
                   <Image
-                    src="./logo.png"
+                    src="/logo.png"
                     alt="logo"
                     width={406}
                     height={368}

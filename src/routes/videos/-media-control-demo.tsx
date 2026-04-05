@@ -1,9 +1,9 @@
-// biome-ignore lint/style/useImportType:
 import {
   Button,
   Checkbox,
   Group,
   Progress,
+  Select,
   Slider,
   Stack,
   Switch,
@@ -20,7 +20,7 @@ import { TVideo } from "~/utils/types";
 
 export const MediaControl = ({ video }: { video: TVideo }) => {
   const playerRef = useRef<HTMLVideoElement | null>(null);
-  const urlInputRef = useRef<HTMLInputElement | null>(null);
+  //   const urlInputRef = useRef<HTMLInputElement | null>(null);
 
   const initialState = {
     // src: undefined,
@@ -49,23 +49,13 @@ export const MediaControl = ({ video }: { video: TVideo }) => {
 
   const [state, setState] = useState<PlayerState>(initialState);
 
-  const load = (src?: string) => {
-    setState((prevState) => ({
-      ...prevState,
-      src,
-      played: 0,
-      loaded: 0,
-      pip: false,
-    }));
-  };
-
   const handlePlayPause = () => {
     setState((prevState) => ({ ...prevState, playing: !prevState.playing }));
   };
 
-  const handleStop = () => {
-    setState((prevState) => ({ ...prevState, src: undefined, playing: false }));
-  };
+  //   const handleStop = () => {
+  //     setState((prevState) => ({ ...prevState, playing: false }));
+  //   };
 
   const handleToggleControls = () => {
     setState((prevState) => ({ ...prevState, controls: !prevState.controls }));
@@ -93,13 +83,29 @@ export const MediaControl = ({ video }: { video: TVideo }) => {
     setState((prevState) => ({ ...prevState, muted: !prevState.muted }));
   };
 
-  const handleSetPlaybackRate = (
-    event: React.SyntheticEvent<HTMLButtonElement>,
-  ) => {
-    const buttonTarget = event.target as HTMLButtonElement;
+  //   const handleSetPlaybackRate = (
+  //     event: React.SyntheticEvent<HTMLButtonElement>,
+  //   ) => {
+  //     console.log('event', event);
+  //     const buttonTarget = event.target as HTMLButtonElement;
+  //     const btnValue = Number.parseFloat(`${buttonTarget.dataset.value}`);
+  //     console.log("handleSetPlaybackRate btnValue", btnValue);
+
+  //     setState((prevState) => ({
+  //       ...prevState,
+  //       playbackRate: btnValue,
+  //       //   playbackRate: Number.parseFloat(`${buttonTarget.dataset.value}`),
+  //     }));
+  //   };
+  const handleSetPlaybackRate = (value: number | null) => {
+    console.log("handleSetPlaybackRate btnValue", value);
+
+    if (!value) return;
+
     setState((prevState) => ({
       ...prevState,
-      playbackRate: Number.parseFloat(`${buttonTarget.dataset.value}`),
+      playbackRate: value,
+      //   playbackRate: Number.parseFloat(`${buttonTarget.dataset.value}`),
     }));
   };
 
@@ -195,7 +201,7 @@ export const MediaControl = ({ video }: { video: TVideo }) => {
     // We only want to update time slider if we are not currently seeking
     if (!player || state.seeking) return;
 
-    console.log("onTimeUpdate", player.currentTime);
+    // console.log("onTimeUpdate", player.currentTime);
 
     if (!player.duration) return;
 
@@ -224,28 +230,11 @@ export const MediaControl = ({ video }: { video: TVideo }) => {
   //     if (reactPlayer) screenfull.request(reactPlayer);
   //   };
 
-  const renderLoadButton = (src: string, label: string) => {
-    return (
-      <button type="button" onClick={() => load(src)}>
-        {label}
-      </button>
-    );
-  };
-
   const setPlayerRef = useCallback((player: HTMLVideoElement) => {
     if (!player) return;
     playerRef.current = player;
     console.log(player);
   }, []);
-
-  const handleLoadCustomUrl = () => {
-    if (urlInputRef.current?.value) {
-      setState((prevState) => ({
-        ...prevState,
-        src: urlInputRef.current?.value,
-      }));
-    }
-  };
 
   const {
     src,
@@ -321,57 +310,57 @@ export const MediaControl = ({ video }: { video: TVideo }) => {
         onDurationChange={handleDurationChange}
       />
 
-      <Stack>
-        <Title order={4}>Controls</Title>
-        <Group>
-          <Button variant={btnVariant} onClick={handleStop}>
+      <Group>
+        <Stack>
+          <Title order={4}>Controls</Title>
+          <Group>
+            {/* <Button variant={btnVariant} onClick={handleStop}>
             Stop
-          </Button>
-          <Button variant={btnVariant} onClick={handlePlayPause}>
-            {playing ? "Pause" : "Play"}
-          </Button>
-          {/* <button type="button" onClick={handleClickFullscreen}> */}
-          <Button
-            variant={btnVariant}
-            onClick={() => console.log("full screen needs some work")}
-          >
-            Fullscreen
-          </Button>
-          {src && ReactPlayer.canEnablePIP?.(src) && (
-            <Button variant={btnVariant} onClick={handleTogglePIP}>
-              {pip ? "Disable PiP" : "Enable PiP"}
+          </Button> */}
+            <Button variant={btnVariant} onClick={handlePlayPause}>
+              {playing ? "Pause" : "Play"}
             </Button>
-          )}
-        </Group>
-      </Stack>
+            {/* <button type="button" onClick={handleClickFullscreen}> */}
+            <Button
+              variant={btnVariant}
+              onClick={() => console.log("full screen needs some work")}
+            >
+              Fullscreen
+            </Button>
+            {src && ReactPlayer.canEnablePIP?.(src) && (
+              <Button variant={btnVariant} onClick={handleTogglePIP}>
+                {pip ? "Disable PiP" : "Enable PiP"}
+              </Button>
+            )}
+          </Group>
+        </Stack>
 
-      <Stack>
+        <Stack>
+          <Title order={4}>Speed</Title>
+          <Select
+            value={state.playbackRate}
+            onChange={(value) => handleSetPlaybackRate(value)}
+            data={[0.25, 0.5, 1, 1.5, 2]}
+          />
+        </Stack>
+      </Group>
+
+      {/* <Stack>
         <Title order={4}>Speed</Title>
-
+        <Select
+          value={state.playbackRate}
+          onChange={(value) => handleSetPlaybackRate(value)}
+          data={[0.25, 0.5, 1, 1.5, 2]}
+        />
         <Group>
           <Button
             variant={btnVariant}
-            onClick={handleSetPlaybackRate}
-            data-value={1}
+            onClick={() => handleSetPlaybackRate(1.0)}
           >
             1x
           </Button>
-          <Button
-            variant={btnVariant}
-            onClick={handleSetPlaybackRate}
-            data-value={1.5}
-          >
-            1.5x
-          </Button>
-          <Button
-            variant={btnVariant}
-            onClick={handleSetPlaybackRate}
-            data-value={2}
-          >
-            2x
-          </Button>
         </Group>
-      </Stack>
+      </Stack> */}
 
       <Stack>
         <Group>
@@ -460,14 +449,6 @@ export const MediaControl = ({ video }: { video: TVideo }) => {
           </Progress.Section>
         </Progress.Root>
       </Stack>
-
-      <Group>
-        <Title order={4}>Custom</Title>
-        <input ref={urlInputRef} type="text" placeholder="Enter URL" />
-        <button type="button" onClick={handleLoadCustomUrl}>
-          Load
-        </button>
-      </Group>
 
       <Stack>
         <Title order={4}>State</Title>

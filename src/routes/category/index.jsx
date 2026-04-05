@@ -1,14 +1,15 @@
 import { Box, Button, SimpleGrid, Title } from "@mantine/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { getAllCategories, getAllTags, getAllVideos } from "~/utils/helper";
+import { getAllCategories } from "../../utils/helper";
+// import { getAllCategories } from "~/utils/helper";
 
-export const Route = createFileRoute("/tags/")({
+export const Route = createFileRoute("/category/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const categories = getAllCategories();
-  const tags = getAllTags();
+  console.log(categories);
 
   return (
     <>
@@ -21,28 +22,10 @@ function RouteComponent() {
               size="lg"
               variant="default"
               component={Link}
-              to={`/tags/${cat}`}
+              to={`/category/${cat}`}
               tt="capitalize"
             >
               {cat}
-            </Button>
-          ))}
-        </SimpleGrid>
-
-        <Title order={1} mt="lg">
-          Tags
-        </Title>
-        <SimpleGrid cols={{ base: 2, sm: 3, md: 4 }} mt="md">
-          {tags.map((tag) => (
-            <Button
-              key={tag}
-              size="lg"
-              variant="default"
-              component={Link}
-              to={`/tags/${tag}`}
-              tt="capitalize"
-            >
-              {tag}
             </Button>
           ))}
         </SimpleGrid>

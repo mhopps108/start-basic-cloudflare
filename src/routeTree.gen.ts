@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as VideosIndexRouteImport } from './routes/videos/index'
 import { Route as TagsIndexRouteImport } from './routes/tags/index'
+import { Route as CategoryIndexRouteImport } from './routes/category/index'
 import { Route as VideosSlugRouteImport } from './routes/videos/$slug'
 import { Route as TagsTagRouteImport } from './routes/tags/$tag'
+import { Route as CategoryCategoryRouteImport } from './routes/category/$category'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -30,6 +32,11 @@ const TagsIndexRoute = TagsIndexRouteImport.update({
   path: '/tags/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CategoryIndexRoute = CategoryIndexRouteImport.update({
+  id: '/category/',
+  path: '/category/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VideosSlugRoute = VideosSlugRouteImport.update({
   id: '/videos/$slug',
   path: '/videos/$slug',
@@ -40,41 +47,76 @@ const TagsTagRoute = TagsTagRouteImport.update({
   path: '/tags/$tag',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CategoryCategoryRoute = CategoryCategoryRouteImport.update({
+  id: '/category/$category',
+  path: '/category/$category',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/category/$category': typeof CategoryCategoryRoute
   '/tags/$tag': typeof TagsTagRoute
   '/videos/$slug': typeof VideosSlugRoute
+  '/category/': typeof CategoryIndexRoute
   '/tags/': typeof TagsIndexRoute
   '/videos/': typeof VideosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/category/$category': typeof CategoryCategoryRoute
   '/tags/$tag': typeof TagsTagRoute
   '/videos/$slug': typeof VideosSlugRoute
+  '/category': typeof CategoryIndexRoute
   '/tags': typeof TagsIndexRoute
   '/videos': typeof VideosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/category/$category': typeof CategoryCategoryRoute
   '/tags/$tag': typeof TagsTagRoute
   '/videos/$slug': typeof VideosSlugRoute
+  '/category/': typeof CategoryIndexRoute
   '/tags/': typeof TagsIndexRoute
   '/videos/': typeof VideosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/tags/$tag' | '/videos/$slug' | '/tags/' | '/videos/'
+  fullPaths:
+    | '/'
+    | '/category/$category'
+    | '/tags/$tag'
+    | '/videos/$slug'
+    | '/category/'
+    | '/tags/'
+    | '/videos/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/tags/$tag' | '/videos/$slug' | '/tags' | '/videos'
-  id: '__root__' | '/' | '/tags/$tag' | '/videos/$slug' | '/tags/' | '/videos/'
+  to:
+    | '/'
+    | '/category/$category'
+    | '/tags/$tag'
+    | '/videos/$slug'
+    | '/category'
+    | '/tags'
+    | '/videos'
+  id:
+    | '__root__'
+    | '/'
+    | '/category/$category'
+    | '/tags/$tag'
+    | '/videos/$slug'
+    | '/category/'
+    | '/tags/'
+    | '/videos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CategoryCategoryRoute: typeof CategoryCategoryRoute
   TagsTagRoute: typeof TagsTagRoute
   VideosSlugRoute: typeof VideosSlugRoute
+  CategoryIndexRoute: typeof CategoryIndexRoute
   TagsIndexRoute: typeof TagsIndexRoute
   VideosIndexRoute: typeof VideosIndexRoute
 }
@@ -102,6 +144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TagsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/category/': {
+      id: '/category/'
+      path: '/category'
+      fullPath: '/category/'
+      preLoaderRoute: typeof CategoryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/videos/$slug': {
       id: '/videos/$slug'
       path: '/videos/$slug'
@@ -116,13 +165,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TagsTagRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/category/$category': {
+      id: '/category/$category'
+      path: '/category/$category'
+      fullPath: '/category/$category'
+      preLoaderRoute: typeof CategoryCategoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CategoryCategoryRoute: CategoryCategoryRoute,
   TagsTagRoute: TagsTagRoute,
   VideosSlugRoute: VideosSlugRoute,
+  CategoryIndexRoute: CategoryIndexRoute,
   TagsIndexRoute: TagsIndexRoute,
   VideosIndexRoute: VideosIndexRoute,
 }

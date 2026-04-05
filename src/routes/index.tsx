@@ -2,7 +2,7 @@ import { Anchor, Card, Group, Scroller, Stack, Title } from "@mantine/core";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import ReactPlayer from "react-player";
 
-import { getAllVideos, getAllTags } from "~/utils/helper";
+import { getAllVideos, getAllTags, getAllCategories } from "~/utils/helper";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -11,6 +11,7 @@ export const Route = createFileRoute("/")({
 function Home() {
   const videos = getAllVideos();
   const tags = getAllTags();
+  const categories = getAllCategories();
   const navigate = useNavigate();
 
   return (
@@ -21,11 +22,11 @@ function Home() {
           View All
         </Anchor>
       </Group>
-      <Scroller>
+      <Scroller controlSize='lg'>
         {/* <Group gap="xs" wrap="nowrap" mah={80}> */}
         <Group gap="sm" wrap="nowrap">
           {videos.map((v) => (
-            <Card shadow="md" padding="sm" key={v.id} w={140} h="100%">
+            <Card shadow="md" padding="sm" key={v.id} w={175} h="100%">
               <Card.Section>
                 <ReactPlayer
                   src={
@@ -72,13 +73,37 @@ function Home() {
       </Scroller>
 
       <Group justify="space-between" mt="lg">
+        <Title order={2}>Category</Title>
+        <Anchor component={Link} to="/category">
+          View All
+        </Anchor>
+      </Group>
+
+      <Scroller controlSize='lg'>
+        <Group gap="sm" wrap="nowrap">
+          {categories.map((c) => (
+            <Card shadow="md" padding="sm" key={c} w={140} h="100%">
+              <Anchor
+                component={Link}
+                to={`/category/${c}`}
+                fw={500}
+                tt="capitalize"
+              >
+                {c}
+              </Anchor>
+            </Card>
+          ))}
+        </Group>
+      </Scroller>
+
+      <Group justify="space-between" mt="lg">
         <Title order={2}>Tags</Title>
         <Anchor component={Link} to="/tags">
           View All
         </Anchor>
       </Group>
 
-      <Scroller>
+      <Scroller controlSize='lg'>
         <Group gap="sm" wrap="nowrap">
           {tags.map((t) => (
             <Card shadow="md" padding="sm" key={t} w={140} h="100%">

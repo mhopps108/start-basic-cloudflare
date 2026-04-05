@@ -41,14 +41,17 @@ export function VideoItem({ video }: { video: TVideo }) {
       >
         {video.title}
       </Anchor>
-      <Group gap="xxs" mt="xs">
+      <Badge variant="default" size="sm" mt='xs'>
+        {video.category}
+      </Badge>
+      {/* <Group gap="xxs" mt="xs">
         {video.tags &&
           video.tags.split(",").map((tag) => (
             <Badge variant="default" key={tag} size="xs">
               {tag}
             </Badge>
           ))}
-      </Group>
+      </Group> */}
     </Card>
   );
 }

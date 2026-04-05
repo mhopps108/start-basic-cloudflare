@@ -22,11 +22,12 @@ function Home() {
           View All
         </Anchor>
       </Group>
-      <Scroller controlSize='lg'>
+      <Scroller controlSize="lg">
         {/* <Group gap="xs" wrap="nowrap" mah={80}> */}
         <Group gap="sm" wrap="nowrap">
           {videos.map((v) => (
-            <Card shadow="md" padding="sm" key={v.id} w={175} h="100%">
+            // <Card shadow="md" padding="sm" key={v.id} w={175} h="100%">
+            <Card shadow="md" padding="sm" key={v.id} w={200} h="100%">
               <Card.Section>
                 <ReactPlayer
                   src={
@@ -58,7 +59,7 @@ function Home() {
                 component={Link}
                 style={{ textWrap: "wrap" }}
                 to={`/videos/${v.slug}`}
-                fz="xs"
+                fz="sm"
                 lh="xs"
                 mt="xs"
                 lineClamp={2}
@@ -79,10 +80,11 @@ function Home() {
         </Anchor>
       </Group>
 
-      <Scroller controlSize='lg'>
+      <Scroller controlSize="lg">
         <Group gap="sm" wrap="nowrap">
           {categories.map((c) => (
-            <Card shadow="md" padding="sm" key={c} w={140} h="100%">
+            // <Card shadow="md" padding="sm" key={c} w={140} h="100%">
+            <Card shadow="md" padding="sm" key={c} h="100%">
               <Anchor
                 component={Link}
                 to={`/category/${c}`}
@@ -103,10 +105,10 @@ function Home() {
         </Anchor>
       </Group>
 
-      <Scroller controlSize='lg'>
+      <Scroller controlSize="lg">
         <Group gap="sm" wrap="nowrap">
           {tags.map((t) => (
-            <Card shadow="md" padding="sm" key={t} w={140} h="100%">
+            <Card shadow="md" padding="sm" key={t} h="100%">
               <Anchor
                 component={Link}
                 to={`/tags/${t}`}

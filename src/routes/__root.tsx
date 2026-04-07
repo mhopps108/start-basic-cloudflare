@@ -186,6 +186,15 @@ export const Route = createRootRoute({
   shellComponent: RootDocument,
 });
 
+const NavBtnAnchor = Anchor.withProps({
+  component: Link,
+  size: "xl",
+  bg: "dark.8",
+  p: "sm",
+  bdrs: "md",
+  ta: "center",
+});
+
 function RootDocument({ children }: { children: React.ReactNode }) {
   const [opened, { toggle, close }] = useDisclosure();
 
@@ -243,16 +252,16 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             </AppShell.Header>
 
             <AppShell.Navbar>
-              <Stack p="md">
-                <Anchor component={Link} to="/videos" onClick={close}>
+              <Stack p="md" justify="center">
+                <NavBtnAnchor to="/videos" onClick={close}>
                   Videos
-                </Anchor>
-                <Anchor component={Link} to="/category" onClick={close}>
+                </NavBtnAnchor>
+                <NavBtnAnchor to="/category" onClick={close}>
                   Category
-                </Anchor>
-                <Anchor component={Link} to="/tags" onClick={close}>
+                </NavBtnAnchor>
+                <NavBtnAnchor to="/tags" onClick={close}>
                   Tags
-                </Anchor>
+                </NavBtnAnchor>
               </Stack>
             </AppShell.Navbar>
 

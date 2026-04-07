@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Text, Title, Group, Badge, Divider, Stack, Box } from "@mantine/core";
+import { Text, Group, Badge, Divider, Stack, Box, Title } from "@mantine/core";
 import ReactPlayer from "react-player";
 import { Link } from "@tanstack/react-router";
 import { TVideo } from "~/utils/types";
@@ -41,7 +41,7 @@ function RouteComponent() {
     );
 
   return (
-    <Stack maw={600} mx="auto" mb='xl'>
+    <Stack maw={600} mx="auto" mb={100}>
       <ReactPlayer
         src={
           video.src.includes("http")
@@ -67,39 +67,49 @@ function RouteComponent() {
           // "--controls": "none",
         }}
       />
-      <Stack gap="xl">
+      <Stack>
         <Title order={1} size="h2">
           {video.title}
         </Title>
 
         <Group justify="space-between">
-          <Badge leftSection={<IconClock size={18} />}>{video.duration}</Badge>
-          <Badge leftSection={<IconCalendar size={18} />}>
+          <Badge leftSection={<IconClock size={14} />}>{video.duration}</Badge>
+          <Badge leftSection={<IconCalendar size={14} />}>
             {video.date_added}
           </Badge>
         </Group>
 
-        <Group justify="space-between" align="start">
-          <Badge
-            variant="light"
-            component={Link}
-            to={`/category/${video.category}`}
-            rightSection={<IconArrowUpRight size={16} />}
-          >
-            {video.category}
-          </Badge>
+        <Group justify="space-between" align="start" mt="lg">
+          <Stack>
+            <Title order={4} size="h5" ml='xs'>
+              Category
+            </Title>
+            <Badge
+              variant="light"
+              component={Link}
+              to={`/category/${video.category}`}
+              rightSection={<IconArrowUpRight size={16} />}
+            >
+              {video.category}
+            </Badge>
+          </Stack>
           <Stack align="end">
-            {video.tags &&
-              video.tags.split(",").map((tag) => (
-                <Badge
-                  key={tag}
-                  component={Link}
-                  to={`/tags/${tag}`}
-                  rightSection={<IconArrowUpRight size={16} />}
-                >
-                  {tag}
-                </Badge>
-              ))}
+            <Title order={4} size="h5">
+              Tags
+            </Title>
+            <Stack align="end">
+              {video.tags &&
+                video.tags.split(",").map((tag) => (
+                  <Badge
+                    key={tag}
+                    component={Link}
+                    to={`/tags/${tag}`}
+                    rightSection={<IconArrowUpRight size={16} />}
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+            </Stack>
           </Stack>
         </Group>
       </Stack>

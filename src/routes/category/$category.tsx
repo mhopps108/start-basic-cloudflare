@@ -31,8 +31,9 @@ function RouteComponent() {
         <Badge mt="xs" size="xl">
           {category}
         </Badge>
-        <Title order={2} tt="capitalize">
-          Videos
+        <Title order={2}>
+          {catVideos?.length || undefined}{" "}
+          {catVideos?.length > 1 ? "Videos" : "Video"}
         </Title>
       </Group>
       <VideoGrid videos={catVideos} />

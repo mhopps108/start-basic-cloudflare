@@ -17,8 +17,6 @@ function RouteComponent() {
     return tags.includes(tag);
   });
 
-  console.log({ tagVideos });
-
   if (!tagVideos)
     return (
       <Text>
@@ -34,7 +32,10 @@ function RouteComponent() {
         <Badge mt="xs" size="xl">
           {tag}
         </Badge>
-        <Title order={2}>Videos</Title>
+        <Title order={2}>
+          {tagVideos?.length || undefined}{" "}
+          {tagVideos?.length > 1 ? "Videos" : "Video"}
+        </Title>
       </Group>
       <VideoGrid videos={tagVideos} />
     </Box>

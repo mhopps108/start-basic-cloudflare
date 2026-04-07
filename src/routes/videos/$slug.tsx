@@ -20,6 +20,38 @@ export const Route = createFileRoute("/videos/$slug")({
       show: (search.show as SearchOptions) || undefined,
     };
   },
+  loader: async ({ params }) => {
+    // const post = await fetchPost(params.postId)
+    // return { post }
+    const videos = getVideos();
+    const video: TVideo | undefined = videos.find(
+      (v) => v.slug === params.slug,
+    );
+    return { video };
+  },
+  head: ({ loaderData }) => ({
+    meta: [
+      { title: loaderData?.video?.title },
+      // { name: "description", content: loaderData.video?.excerpt },
+      // Open Graph
+      { property: "og:title", content: loaderData?.video?.title },
+      // { property: "og:description", content: loaderData.video?.excerpt },
+      {
+        property: "og:image",
+        content: `/thumbs/${loaderData?.video?.id}.jpeg`,
+      },
+      { property: "og:type", content: "article" },
+      // Twitter Card
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: loaderData?.video?.title },
+      // { name: "twitter:description", content: loaderData.video?.excerpt },
+      {
+        name: "twitter:image",
+        content: `/thumbs/${loaderData?.video?.id}.jpeg`,
+      },
+      //
+    ],
+  }),
   component: RouteComponent,
 });
 
@@ -81,7 +113,7 @@ function RouteComponent() {
 
         <Group justify="space-between" align="start" mt="lg">
           <Stack>
-            <Title order={4} size="h5" ml='xs'>
+            <Title order={4} size="h5" ml="xs">
               Category
             </Title>
             <Badge

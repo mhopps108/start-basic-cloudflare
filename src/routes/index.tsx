@@ -33,7 +33,7 @@ function Home() {
                       ? v.src
                       : `${import.meta.env.VITE_ASSET_URL}/${v.src}`
                   }
-                  light={<img src={`./thumbs/${v.id}.jpeg`} alt="Thumbnail" />}
+                  light={<img src={`/thumbs/${v.id}.jpeg`} alt="Thumbnail" />}
                   onClickPreview={() => navigate({ to: `/videos/${v.slug}` })}
                   controls
                   width="100px"

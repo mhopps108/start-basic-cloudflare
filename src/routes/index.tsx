@@ -2,14 +2,14 @@ import { Anchor, Card, Group, Scroller, Stack, Title } from "@mantine/core";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import ReactPlayer from "react-player";
 
-import { getAllVideos, getAllTags, getAllCategories } from "~/utils/helper";
+import { getAllTags, getAllCategories, getVideos } from "~/utils/helper";
 
 export const Route = createFileRoute("/")({
   component: Home,
 });
 
 function Home() {
-  const videos = getAllVideos();
+  const videos = getVideos();
   const tags = getAllTags();
   const categories = getAllCategories();
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { Box, Button, SimpleGrid, Title } from "@mantine/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { getAllCategories, getAllTags, getAllVideos } from "~/utils/helper";
+import { getAllCategories, getAllTags } from "~/utils/helper";
 
 export const Route = createFileRoute("/tags/")({
   component: RouteComponent,

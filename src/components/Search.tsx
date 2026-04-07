@@ -8,7 +8,7 @@ import {
   SpotlightActionGroupData,
   spotlight,
 } from "@mantine/spotlight";
-import { getAllVideos, getAllTags } from "~/utils/helper";
+import { getAllTags, getVideos } from "~/utils/helper";
 import { useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
 
@@ -60,7 +60,7 @@ const fuzzySearchFilter: SpotlightFilterFunction = (query, searchActions) => {
 };
 
 const createActionTitles = (navigate: any) => {
-  const videos = getAllVideos();
+  const videos = getVideos();
   return videos.map((v) => {
     return {
       id: v.id,

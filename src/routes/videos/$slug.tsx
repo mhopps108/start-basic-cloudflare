@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 import { Link } from "@tanstack/react-router";
 import { TVideo } from "~/utils/types";
 import { IconArrowUpRight } from "@tabler/icons-react";
-import { getAllVideos } from "~/utils/helper";
+import { getVideos } from "~/utils/helper";
 import { MediaControl } from "./-media-control-demo";
 
 export const Route = createFileRoute("/videos/$slug")({
@@ -13,7 +13,7 @@ export const Route = createFileRoute("/videos/$slug")({
 
 function RouteComponent() {
   const { slug } = Route.useParams();
-  const videos = getAllVideos();
+  const videos = getVideos();
   const video: TVideo | undefined = videos.find((v) => v.slug === slug);
 
   if (!video)

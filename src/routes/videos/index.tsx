@@ -1,14 +1,14 @@
 import { Button, Group, Title } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import { VideoGrid } from "~/components/VideoGrid";
-import { getAllVideos } from "~/utils/helper";
+import { getVideos } from "~/utils/helper";
 
 export const Route = createFileRoute("/videos/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const videos = getAllVideos();
+  const videos = getVideos();
 
   return (
     <>

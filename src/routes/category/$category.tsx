@@ -10,7 +10,7 @@ import {
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { VideoGrid } from "~/components/VideoGrid";
 import { TVideo } from "~/utils/types";
-import { getAllCategories, getAllTags, getAllVideos } from "~/utils/helper";
+import { getAllCategories, getVideos } from "~/utils/helper";
 
 export const Route = createFileRoute("/category/$category")({
   component: RouteComponent,
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/category/$category")({
 function RouteComponent() {
   const { category } = Route.useParams();
   const categories = getAllCategories();
-  const videos = getAllVideos();
+  const videos = getVideos();
 
   const catVideos: TVideo[] | undefined = videos?.filter((v) => {
     return v.category === category;

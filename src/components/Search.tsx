@@ -8,7 +8,7 @@ import {
   SpotlightActionGroupData,
   spotlight,
 } from "@mantine/spotlight";
-import { getAllTags, getVideos } from "~/utils/helper";
+import { getAllCategories, getAllTags, getVideos } from "~/utils/helper";
 import { useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
 
@@ -65,9 +65,20 @@ const createActionTitles = (navigate: any) => {
     return {
       id: v.id,
       label: v.title,
-      description: v.tags,
+      // description: v.tags,
+      description: v.category,
       onClick: () =>
         navigate({ to: `/videos/$slug`, params: { slug: v.slug } }),
+    };
+  });
+};
+
+const createActionCategories = (navigate: any) => {
+  const cats = getAllCategories();
+  return cats.map((t) => {
+    return {
+      id: t,
+      label: t,
     };
   });
 };
@@ -92,7 +103,10 @@ export function Search() {
         group: "Titles",
         actions: createActionTitles(navigate),
       },
-
+      {
+        group: "Categories",
+        actions: createActionCategories(navigate),
+      },
       {
         group: "Tags",
         actions: createActionTags(navigate),
@@ -111,7 +125,7 @@ export function Search() {
         filter={fuzzySearchFilter}
         nothingFound="Nothing found..."
         highlightQuery
-        limit={7}
+        limit={10}
         searchProps={{
           leftSection: <IconSearch size={20} />,
           placeholder: "Search...",

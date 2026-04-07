@@ -17,16 +17,14 @@ function Home() {
   return (
     <Stack>
       <Group justify="space-between">
-        <Title order={2}>Videos</Title>
+        <Title order={2}>Recently Added</Title>
         <Anchor component={Link} to="/videos">
           View All
         </Anchor>
       </Group>
       <Scroller controlSize="lg">
-        {/* <Group gap="xs" wrap="nowrap" mah={80}> */}
         <Group gap="sm" wrap="nowrap">
           {videos.map((v) => (
-            // <Card shadow="md" padding="sm" key={v.id} w={175} h="100%">
             <Card shadow="md" padding="sm" key={v.id} w={200} h="100%">
               <Card.Section>
                 <ReactPlayer
@@ -35,7 +33,6 @@ function Home() {
                       ? v.src
                       : `${import.meta.env.VITE_ASSET_URL}/${v.src}`
                   }
-                  //   playing={true}
                   light={<img src={`./thumbs/${v.id}.jpeg`} alt="Thumbnail" />}
                   onClickPreview={() => navigate({ to: `/videos/${v.slug}` })}
                   controls
@@ -53,13 +50,10 @@ function Home() {
                 />
               </Card.Section>
 
-              {/* <Box display="block" mih={40}> */}
               <Anchor
-                // display="inline-block"
                 component={Link}
                 style={{ textWrap: "wrap" }}
                 to={`/videos/${v.slug}`}
-                // fz="sm"
                 lh="xs"
                 mt="xs"
                 lineClamp={2}
@@ -67,7 +61,6 @@ function Home() {
               >
                 {v.title}
               </Anchor>
-              {/* </Box> */}
             </Card>
           ))}
         </Group>
@@ -83,7 +76,6 @@ function Home() {
       <Scroller controlSize="lg">
         <Group gap="sm" wrap="nowrap">
           {categories.map((c) => (
-            // <Card shadow="md" padding="sm" key={c} w={140} h="100%">
             <Card shadow="md" padding="sm" key={c} h="100%">
               <Anchor
                 component={Link}

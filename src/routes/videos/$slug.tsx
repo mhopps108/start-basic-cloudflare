@@ -1,20 +1,35 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Text, Stack, Title, Group, Badge, Divider } from "@mantine/core";
+import { Text, Title, Group, Badge, Divider, Stack, Box } from "@mantine/core";
 import ReactPlayer from "react-player";
 import { Link } from "@tanstack/react-router";
 import { TVideo } from "~/utils/types";
-import { IconArrowUpRight } from "@tabler/icons-react";
+import { IconArrowUpRight, IconCalendar, IconClock } from "@tabler/icons-react";
 import { getVideos } from "~/utils/helper";
 import { MediaControl } from "./-media-control-demo";
 
+type SearchOptions = any;
+
+type DetailsSearch = {
+  show: SearchOptions;
+};
+
 export const Route = createFileRoute("/videos/$slug")({
+  validateSearch: (search: Record<string, unknown>): DetailsSearch => {
+    // validate and parse the search params into a typed state
+    return {
+      show: (search.show as SearchOptions) || undefined,
+    };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const { slug } = Route.useParams();
+  const { show } = Route.useSearch();
   const videos = getVideos();
   const video: TVideo | undefined = videos.find((v) => v.slug === slug);
+
+  console.log({ show });
 
   if (!video)
     return (
@@ -26,7 +41,7 @@ function RouteComponent() {
     );
 
   return (
-    <Stack maw={600} mx="auto">
+    <Stack maw={600} mx="auto" mb='xl'>
       <ReactPlayer
         src={
           video.src.includes("http")
@@ -52,11 +67,20 @@ function RouteComponent() {
           // "--controls": "none",
         }}
       />
-      <Stack>
-        <Title order={1}>{video.title}</Title>
+      <Stack gap="xl">
+        <Title order={1} size="h2">
+          {video.title}
+        </Title>
+
         <Group justify="space-between">
+          <Badge leftSection={<IconClock size={18} />}>{video.duration}</Badge>
+          <Badge leftSection={<IconCalendar size={18} />}>
+            {video.date_added}
+          </Badge>
+        </Group>
+
+        <Group justify="space-between" align="start">
           <Badge
-            size="lg"
             variant="light"
             component={Link}
             to={`/category/${video.category}`}
@@ -64,41 +88,36 @@ function RouteComponent() {
           >
             {video.category}
           </Badge>
-          <Badge size="lg" variant="default">
-            {video.duration}
-          </Badge>
-        </Group>
-        <Group gap="xxs" mt="auto">
-          {video.tags &&
-            video.tags.split(",").map((tag) => (
-              <Badge
-                size="md"
-                variant="default"
-                key={tag}
-                component={Link}
-                to={`/tags/${tag}`}
-                rightSection={<IconArrowUpRight size={16} />}
-              >
-                {tag}
-              </Badge>
-            ))}
-        </Group>
-        <Group>
-          <Text c="dimmed">Date Added</Text>
-          <Text>{video.date_added}</Text>
+          <Stack align="end">
+            {video.tags &&
+              video.tags.split(",").map((tag) => (
+                <Badge
+                  key={tag}
+                  component={Link}
+                  to={`/tags/${tag}`}
+                  rightSection={<IconArrowUpRight size={16} />}
+                >
+                  {tag}
+                </Badge>
+              ))}
+          </Stack>
         </Group>
       </Stack>
 
-      <Divider size="lg" mt={200} />
+      {show && (
+        <Box>
+          <Divider size="lg" mt={200} />
 
-      <Stack mt={10}>
-        <Text>{video.src}</Text>
-        <Text>{video.ratio}</Text>
-        <Text>{video.slug}</Text>
-        <Text>{video.org_source}</Text>
-      </Stack>
+          <Stack mt={10}>
+            <Text>{video.src}</Text>
+            <Text>{video.ratio}</Text>
+            <Text>{video.slug}</Text>
+            <Text>{video.org_source}</Text>
+          </Stack>
 
-      <MediaControl video={video} />
+          <MediaControl video={video} />
+        </Box>
+      )}
     </Stack>
   );
 }

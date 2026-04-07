@@ -1,7 +1,6 @@
 import { Box, Button, SimpleGrid, Title } from "@mantine/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { getAllCategories } from "../../utils/helper";
-// import { getAllCategories } from "~/utils/helper";
 
 export const Route = createFileRoute("/category/")({
   component: RouteComponent,

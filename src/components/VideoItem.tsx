@@ -33,7 +33,7 @@ export function VideoItem({ video }: { video: TVideo }) {
       <Anchor
         component={Link}
         to={`/videos/${video.slug}`}
-        fz="sm"
+        // fz="sm"
         lh="xs"
         mt="xs"
         lineClamp={2}
@@ -41,7 +41,7 @@ export function VideoItem({ video }: { video: TVideo }) {
       >
         {video.title}
       </Anchor>
-      <Badge variant="default" size="sm" mt='xs'>
+      <Badge variant="default" size="sm" mt="xs">
         {video.category}
       </Badge>
       {/* <Group gap="xxs" mt="xs">

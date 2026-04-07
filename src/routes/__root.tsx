@@ -32,6 +32,7 @@ import {
   Anchor,
   ActionIcon,
   Stack,
+  Badge,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -90,6 +91,12 @@ export const theme = createTheme({
     TextInput: TextInput.extend({
       defaultProps: {
         size: "md",
+      },
+    }),
+    Badge: Badge.extend({
+      defaultProps: {
+        size: "lg",
+        variant: "default",
       },
     }),
     Checkbox: Checkbox.extend({

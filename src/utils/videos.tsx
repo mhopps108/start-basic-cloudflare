@@ -6,7 +6,7 @@ export const videos = [
     field4: "https://pub-1f4c102a3e014fbaa397381bcc3a1fe5.r2.dev3704.mp4",
     ratio: "607/1080",
     category: "hitting",
-    tags: "mentality",
+    tags: "approach",
     duration: "1:59",
     slug: "think-box-play-box-decision-line-3704",
     filename: "3704.mp4",
@@ -77,7 +77,7 @@ export const videos = [
     field4: "https://pub-1f4c102a3e014fbaa397381bcc3a1fe5.r2.dev2797.mp4",
     ratio: "720/900",
     category: "hitting",
-    tags: "mentality",
+    tags: "approach",
     duration: "0:12",
     slug: "tank-vs-take-2797",
     org_source:

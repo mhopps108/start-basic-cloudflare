@@ -1,16 +1,8 @@
-import {
-  AppShellNavbar,
-  Badge,
-  Box,
-  Button,
-  SimpleGrid,
-  Text,
-  Title,
-} from "@mantine/core";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Badge, Box, Group, Text, Title } from "@mantine/core";
+import { createFileRoute } from "@tanstack/react-router";
 import { VideoGrid } from "~/components/VideoGrid";
 import { TVideo } from "~/utils/types";
-import { getAllTags, getVideos } from "~/utils/helper";
+import { getVideos } from "~/utils/helper";
 
 export const Route = createFileRoute("/tags/$tag")({
   component: RouteComponent,
@@ -18,7 +10,6 @@ export const Route = createFileRoute("/tags/$tag")({
 
 function RouteComponent() {
   const { tag } = Route.useParams();
-  const tags = getAllTags();
   const videos = getVideos();
 
   const tagVideos: TVideo[] | undefined = videos?.filter((v) => {
@@ -38,32 +29,14 @@ function RouteComponent() {
     );
 
   return (
-    <>
-      <AppShellNavbar>
-        <SimpleGrid cols={{ base: 1 }} p="md">
-          <Title order={4}>Tags</Title>
-          {tags.map((tag) => (
-            <Button
-              key={tag}
-              variant="default"
-              component={Link}
-              to={`/tags/${tag}`}
-              tt="capitalize"
-            >
-              {tag}
-            </Button>
-          ))}
-        </SimpleGrid>
-      </AppShellNavbar>
-      <Box>
-        <Title order={2} tt="capitalize">
-          Tagged Videos
-        </Title>
+    <Box>
+      <Group justify="space-between">
         <Badge mt="xs" size="xl">
           {tag}
         </Badge>
-        <VideoGrid videos={tagVideos} />
-      </Box>
-    </>
+        <Title order={2}>Videos</Title>
+      </Group>
+      <VideoGrid videos={tagVideos} />
+    </Box>
   );
 }

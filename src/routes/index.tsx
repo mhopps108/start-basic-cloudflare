@@ -59,7 +59,7 @@ function Home() {
                 component={Link}
                 style={{ textWrap: "wrap" }}
                 to={`/videos/${v.slug}`}
-                fz="sm"
+                // fz="sm"
                 lh="xs"
                 mt="xs"
                 lineClamp={2}

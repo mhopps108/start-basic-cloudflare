@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Text, Stack, Title, Group, Badge } from "@mantine/core";
+import { Text, Stack, Title, Group, Badge, Divider } from "@mantine/core";
 import ReactPlayer from "react-player";
 import { Link } from "@tanstack/react-router";
 import { TVideo } from "~/utils/types";
@@ -27,8 +27,6 @@ function RouteComponent() {
 
   return (
     <Stack maw={600} mx="auto">
-      <MediaControl video={video} />
-
       <ReactPlayer
         src={
           video.src.includes("http")
@@ -57,24 +55,33 @@ function RouteComponent() {
       <Stack>
         <Title order={1}>{video.title}</Title>
         <Group justify="space-between">
-          <Group gap="xxs" mt="auto">
-            {video.tags &&
-              video.tags.split(",").map((tag) => (
-                <Badge
-                  size="lg"
-                  variant="light"
-                  key={tag}
-                  component={Link}
-                  to={`/tags/${tag}`}
-                  rightSection={<IconArrowUpRight size={16} />}
-                >
-                  {tag}
-                </Badge>
-              ))}
-          </Group>
+          <Badge
+            size="lg"
+            variant="light"
+            component={Link}
+            to={`/category/${video.category}`}
+            rightSection={<IconArrowUpRight size={16} />}
+          >
+            {video.category}
+          </Badge>
           <Badge size="lg" variant="default">
             {video.duration}
           </Badge>
+        </Group>
+        <Group gap="xxs" mt="auto">
+          {video.tags &&
+            video.tags.split(",").map((tag) => (
+              <Badge
+                size="md"
+                variant="default"
+                key={tag}
+                component={Link}
+                to={`/tags/${tag}`}
+                rightSection={<IconArrowUpRight size={16} />}
+              >
+                {tag}
+              </Badge>
+            ))}
         </Group>
         <Group>
           <Text c="dimmed">Date Added</Text>
@@ -82,12 +89,16 @@ function RouteComponent() {
         </Group>
       </Stack>
 
-      <Stack mt={150}>
+      <Divider size="lg" mt={200} />
+
+      <Stack mt={10}>
         <Text>{video.src}</Text>
         <Text>{video.ratio}</Text>
         <Text>{video.slug}</Text>
         <Text>{video.org_source}</Text>
       </Stack>
+
+      <MediaControl video={video} />
     </Stack>
   );
 }

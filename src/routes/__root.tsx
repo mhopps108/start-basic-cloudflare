@@ -180,7 +180,7 @@ export const Route = createRootRoute({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const [opened, { toggle }] = useDisclosure();
+  const [opened, { toggle, close }] = useDisclosure();
 
   return (
     <html lang="en" {...mantineHtmlProps}>
@@ -237,13 +237,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 
             <AppShell.Navbar>
               <Stack p="md">
-                <Anchor component={Link} to="/videos">
+                <Anchor component={Link} to="/videos" onClick={close}>
                   Videos
                 </Anchor>
-                <Anchor component={Link} to="/category">
+                <Anchor component={Link} to="/category" onClick={close}>
                   Category
                 </Anchor>
-                <Anchor component={Link} to="/tags">
+                <Anchor component={Link} to="/tags" onClick={close}>
                   Tags
                 </Anchor>
               </Stack>
